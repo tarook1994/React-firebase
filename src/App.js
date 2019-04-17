@@ -30,22 +30,33 @@ class App extends Component {
     ref.on('value', snapshot => {
       const state = snapshot.val();
       console.log(state)
-      this.setState({database : state});
+      this.setState({database : Object.values(state)
+      });
+      console.log('DATA RETRIEVED');
     });
-    console.log('DATA RETRIEVED');
+   
    
   }
 
-  onClickHandler = (input) => {
+  onClickHandler = () => {
     let ref = Firebase.database().ref('/');
-    ref.push({name: input}, msg => {
+    ref.push({name: this.state.input}, msg => {
       console.log(msg)
     })
+  }
+
+  onChangeHandler = (event) => {
+   const data =  event.target.value;
+   this.setState({
+     input : data
+   })
   }
 
   componentWillMount() {
     this.getUserData();
   }
+
+
   
   render() {
 
@@ -61,9 +72,9 @@ class App extends Component {
          </div>
 
          <div>
-           <input type="text"></input>
+           <input type="text" onChange={(event) => this.onChangeHandler(event) }></input>
            <br></br>
-           <button > Submit </button>
+           <button onClick={this.onClickHandler}> Submit </button>
          </div>
         </div>
 
