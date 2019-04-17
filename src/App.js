@@ -57,6 +57,16 @@ class App extends Component {
   }
 
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if(this.state.database !== nextState.database){
+      console.log(this.state.database +"  zas" + nextState.database)
+      return true;
+    }
+    console.log(false)
+    return false;
+  }
+
+
   
   render() {
 
